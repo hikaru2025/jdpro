@@ -1,3 +1,8 @@
+/*
+定时自定义
+2 10 20 5 * jd_bean_info.js
+ */
+
 const $ = new Env('京豆详情统计');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -36,7 +41,7 @@ if ($.isNode()) {
       $.balance = 0;
       $.expiredBalance = 0;
       await TotalBean();
-      console.log(`\n********开始【京东账号${$.index}】${$.nickName || $.UserName}******\n`);
+      //console.log(`\n********开始【京东账号${$.index}】${$.nickName || $.UserName}******\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
 
@@ -68,7 +73,7 @@ async function showMsg() {
   allMessage += `今日收入总计：${$.todayIncomeBean}京豆 🐶\n`
   allBean = allBean + parseInt($.todayIncomeBean)
   for (let key of myMap.keys()) {
-    allMessage += key + ' ---> ' +myMap.get(key)+'京豆 🐶\n'
+	allMessage += "【" +myMap.get(key)+"豆"+"】 "+key+'\n'
   }
   myMap = new Map()
   // if ($.isNode()) {
